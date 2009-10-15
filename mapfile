@@ -1,0 +1,111 @@
+
+#--------------------------------------------------------------------------------------
+#user define connection
+#--------------------------------------------------------------------------------------
+
+#u_ahb_sif.iHCLK             !   sl2_lcdc.hclk             
+#u_ahb_sif.iHRESET_N         !   sl2_lcdc.h_rst_n         
+#u_ahb_sif.iHSEL             !   sl2_lcdc.ahbd_hsel             
+#u_ahb_sif.iHADDR            !   sl2_lcdc.ahbd_haddr            
+#u_ahb_sif.iHWRITE           !   sl2_lcdc.ahbd_hwrite           
+#u_ahb_sif.iHTRANS           !   sl2_lcdc.ahbd_htrans           
+#u_ahb_sif.iHSIZE            !   sl2_lcdc.ahbd_hsize            
+#u_ahb_sif.iHWDATA           !   sl2_lcdc.ahbd_hwdata           
+#u_ahb_sif.iHREADY           !   sl2_lcdc.ahbd_hreadyin           
+#u_ahb_sif.oHREADY           !   sl2_lcdc.ahbd_hreadyout           
+#u_ahb_sif.oHRESP            !   sl2_lcdc.ahbd_hresp            
+#u_ahb_sif.oHRDATA           !   sl2_lcdc.ahbd_hrdata           
+#
+#u_ahb_sif.oLREAD            !   u_sl2_lcdc_reg.LREAD            
+#u_ahb_sif.oLWRITE           !   u_sl2_lcdc_reg.LWRITE           
+#u_ahb_sif.oLADDR            !   u_sl2_lcdc_reg.LADDR            
+#u_ahb_sif.oLSIZE            !   u_sl2_lcdc_reg.LSIZE            
+#u_ahb_sif.oLWDATA           !   u_sl2_lcdc_reg.LWDATA           
+#u_ahb_sif.iLREADY           !   u_sl2_lcdc_reg.LREADY           
+#u_ahb_sif.iLRDATA           !   u_sl2_lcdc_reg.LRDATA           
+#
+#--------------------------------------------------------------------------------------
+#u_sl5_simc_rx.ser_in           !   sl5_simc.simc_din           
+#u_sl5_simc_sio.ser_in          !   sl5_simc.simc_din           
+#u_sl5_simc_tx.ser_in           !   sl5_simc.simc_din           
+#u_sl5_simc_pctl.ser_in         !   sl5_simc.simc_din           
+#u_sl5_simc_rx.ser_in            !   
+#u_sl5_simc_sio.ser_in           !   
+#u_sl5_simc_tx.ser_in            !   
+#u_sl5_simc_pctl.ser_in          !   
+u_sl5_simc_smsync.s_etudet      !              
+
+
+
+u_sl5_simc_pctl.port_is_mrst        !
+u_sl5_simc_pctl.port_is_mtrr        !
+u_sl5_simc_pctl.port_is_mtcf        !
+u_sl5_simc_pctl.port_is_mnml        !
+u_sl5_simc_pctl.port_is_srst        !
+u_sl5_simc_pctl.port_is_stcf        !
+u_sl5_simc_pctl.port_is_scts        !
+u_sl5_simc_pctl.port_is_snml        !
+u_sl5_simc_pctl.port_is_rst_all     !
+u_sl5_simc_pctl.port_is_tcf_all     !
+u_sl5_simc_pctl.port_is_cts_all     !
+u_sl5_simc_pctl.port_is_nml_all     !
+u_sl5_simc_rx.rxstate             !
+u_sl5_simc_rx.rxrun               !
+u_sl5_simc_tx.txstate             !
+u_sl5_simc_tx.txrun               !
+u_sl5_simc_tx.error_signal        !
+#--------------------------------------------------------------------------------------
+#user write directly
+#--------------------------------------------------------------------------------------
+*write_include  !/*********************************************************************\
+*write_include  ! |*                                                                  *|   
+*write_include  ! |*    Copyright (c) 2006 by SimpLight Nanoelectronics.              *|
+*write_include  ! |*    All rights reserved                                           *|
+*write_include  ! |*                                                                  *|
+*write_include  ! |* This material constitutes the trade secrets and confidential,    *| 
+*write_include  ! |* proprietary information of SimpLight.  This material is not to   *|  
+*write_include  ! |* be disclosed, reproduced, copied, or used in any manner  not     *|  
+*write_include  ! |* permitted under license from SimpLight Nanoelectronics Ltd.      *|  
+*write_include  ! |*                                                                  *|   
+*write_include  !\*********************************************************************/ 
+*write_include  !
+*write_include  !// File Name         : sl5_simc.v
+*write_include  !// Owner             : Hongquan Zuo
+*write_include  !// Creation Date     : 01/22/2009                                               
+*write_include  !// Description       : sl5_simc top file 
+*write_include  !//
+*write_include  !//
+#*write_include  !`timescale 1ns/100ps
+#*write_include  !`include "timescale.vh"
+*write_include  !`include "makalu.vh"
+#*write_include  !`define SFR_A_W 7
+#*write_include  !`define SFR_D_W 32
+#--------------------------------------------------------------------------------------
+*write_para     !parameter SIMC_TX_FASIZE = 3;
+*write_para     !parameter SIMC_RX_FASIZE = 4;
+*write_para     !parameter SL5_SIMC_INT_NUM = 13;
+*write_para     !parameter SIMC_ETU_W = 12;
+*write_para     !parameter SIMC_SMSYNC_W = 13;
+#--------------------------------------------------------------------------------------
+*write_port     !simc_din
+*write_para     !input  simc_din;
+*write_assign   !assign ser_in = simc_din;
+*add_mask       !sl5_simc.ser_in;
+#--------------------------------------------------------------------------------------
+u_sl5_simc_sio.ser_out             !
+u_sl5_simc_sio.ser_doen            !
+*write_port     !simc_dout
+*write_port     !simc_doen
+*write_para     !output  simc_dout;
+*write_para     !output  simc_doen;
+*write_assign   !wire   ser_out;
+*write_assign   !wire   ser_doen;
+*write_assign   !assign simc_dout = ser_out;
+*write_assign   !assign simc_doen = ser_doen;
+#--------------------------------------------------------------------------------------
+*write_wire     !wire   [4:0]   txstate;
+*write_wire     !wire   [3:0]   rxstate;
+#--------------------------------------------------------------------------------------
+*sel_format   = 32
+
+

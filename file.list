@@ -1,0 +1,18 @@
+
+###############################################
+#sub/top: module_name :instance_number :module file full path :instance_number
+###############################################
+
+top :   sl5_simc        : 1 :   sl5_simc.v
+sub :   sl5_simc_baud   : 1 :   sl5_simc_baud.v
+sub :   sl5_simc_fifo   : 1 :   sl5_simc_fifo.v
+sub :   sl5_simc_int    : 1 :   sl5_simc_int.v
+sub :   sl5_simc_pctl   : 1 :   sl5_simc_pctl.v
+sub :   sl5_simc_psync  : 1 :   sl5_simc_psync.v
+sub :   sl5_simc_rc     : 1 :   sl5_simc_rc.v
+sub :   sl5_simc_reg    : 1 :   sl5_simc_reg.v
+sub :   sl5_simc_rx     : 1 :   sl5_simc_rx.v
+sub :   sl5_simc_sio    : 1 :   sl5_simc_sio.v
+sub :   sl5_simc_smsync : 1 :   sl5_simc_smsync.v
+sub :   sl5_simc_tx     : 1 :   sl5_simc_tx.v
+sub :   sl5_simc_misc   : 1 :   sl5_simc_misc.v

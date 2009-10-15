@@ -1,0 +1,54 @@
+
+To generate top module, we need top_hookup.pl , file.list and sub module verilog files. 
+File.list¡¯s format is:
+###############################################
+#sub/top: module_name : instance_number :module file full path : instance_number
+###############################################
+top :   top  :1  :top.v 
+sub :   m   :2  :m.v   
+sub :   s    :2  :s.v      
+sub :   b    :1  :b.v  
+sub :   dma  :1  :dma.v  
+
+*There is only one ¡°top¡±. 
+*Now we can solve the problem to instance one module more than one time
+*We can begin with ¡°#¡± to add comment. 
+*All parts of the information are splited with ¡±:¡±
+*If out port name = in port name, they will be connected
+*If a module has more than one instances, we will add instance name to port name. e.g. u0_m_mo_1 and u1_m_mo_1.
+
+
+
+
+
+If we want to hookup a out port to a in port without same name or same bit width, we can make mapfile to map them.
+Mapfile format is :
+######################################################
+# instance. port      !   instance. port 
+#######################################################
+u0_m.mo_1[30:9]  ! u_b.bi_1  
+u1_m.mo_1       ! u_b.bi_2 
+u1_s.so_1        ! u_b.bi_3 
+u_b.bi_4         ! u1_s.so_1 
+u1_s.so_1[20:10]	! top.out_test  
+u_b.bi_6         ! set.1'b0
+u_b.bo_6        ! set.
+u_b.bo_5        ! top.change_outame
+u_b.bo_1        ! u0_m.mi_1 
+u_b.bo_2        ! u1_m.mi_1 
+u_b.bo_3        ! u0_s.si_1 
+u_b.bo_4        ! u1_s.si_1 
+u0_m.m_ack !    u_dma.dma_ack[0]   
+u1_m.m_ack !    u_dma.dma_ack[1]   
+ 
+
+*We can begin with ¡°#¡± to add comment.
+*instance name and port name are splited with ¡°.¡±
+*out_instance.outport and in_instance.inport are splited with ¡°!¡±
+*port name can add bit range, just like line 1.
+*Out port can write at left side or right side of ¡°!¡±, in port is also, e.g. line 3,4
+*One out port can hookup to more than one in port. e.g. line 3,4,5
+*If a out port is a output of the top module, we write instance name  as ¡°$top¡± in file.list. e.g. line 5
+*We can set a value to a in port, e.g. line 6
+*If we do not use a out port, set it to empty, e.g. line 7
+
